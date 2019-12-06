@@ -17,25 +17,31 @@ def kontroll(x,y):
         return False
     
 #Arvuti käib lauale kaarte
-def arvuti_kaartide_asetamine(laud,pakk):
-    print(pakk)
+def arvuti_kaartide_asetamine():
+    #print(pakk)
     for i in range(4):
         #print(laud[i])
-        if laud[i] == 0:
-            laud[i] = pakk.pop(0)
+        if arvuti[i] == 0:
+            arvuti[i] = arvuti_kaardid[0]
+            del arvuti_kaardid[0]
+            tõsta_kaart_arvuti(i)
+            nimed_arvuti()
+            kaarte_alles()
+            pygame.display.flip()
+            sleep(0.05)
             #print(laud[i])
-    print(laud)
-    print(pakk)
+    #print(laud)
+    #print(pakk)
 
 """ def arvuti_kaartide_mängimine(laud, mäng):
     for i in laud:
         if kontroll(i,pakk1):
         
         elif kontroll(i,pakk2): """
-            
+
+
 
 def ütle_pakk(pakkvasak):
-    
     if(pakkvasak):
         tekst_3_2 = "parem pakk"
         meie_font3 = pygame.font.SysFont("Times New Roman", 22)
@@ -62,6 +68,15 @@ def ütle_pakk(pakkvasak):
 def tõsta_kaart(arv):
     if len(mängija_kaardid) > 0:
         kaart = pygame.Rect(koordinaadidX[arv], koordinaadidY[arv], 45, 70)
+        pygame.draw.rect(ekraani_pind, (255, 255, 255), kaart)
+        
+        pygame.display.flip()
+        
+def tõsta_kaart_arvuti(arv):
+    AkoordinaadidX = [100, 250, 400, 550]
+    AkoordinaadidY = [50, 50, 50, 50]
+    if len(arvuti_kaardid) > 0:
+        kaart = pygame.Rect(AkoordinaadidX[arv], AkoordinaadidY[arv], 45, 70)
         pygame.draw.rect(ekraani_pind, (255, 255, 255), kaart)
         
         pygame.display.flip()
@@ -171,6 +186,26 @@ def nimed():
             teksti_pilt_nimi = meie_font.render(nimi, False, (25, 25, 155))
             ekraani_pind.blit(teksti_pilt_nimi, (koordinaadidX[i], koordinaadidY[i]))
     pygame.display.flip()
+    
+def nimed_arvuti():
+    n = [0, 0, 0, 0]
+    AkoordinaadidX = [100, 250, 400, 550]
+    AkoordinaadidY = [50, 50, 50, 50]
+    if arvuti[0] != 0:
+        n[0] = 1
+    if arvuti[1] != 0:
+        n[1] = 1
+    if arvuti[2] != 0:
+        n[2] = 1
+    if arvuti[3] != 0:
+        n[3] = 1
+    for i in range(4):
+        if(n[i] == 1):
+            nimi = arvuti[i]
+            meie_font = pygame.font.SysFont("Times New Roman", 22)
+            teksti_pilt_nimi = meie_font.render(nimi, False, (25, 25, 155))
+            ekraani_pind.blit(teksti_pilt_nimi, (AkoordinaadidX[i], AkoordinaadidY[i]))
+    pygame.display.flip()
 
 import  pygame
 from time import sleep
@@ -190,9 +225,11 @@ deck=hearts+spades+diamonds+clubs
 
 shuffle(deck)
 mängija_kaardid=deck[:26]
+global arvuti_kaardid
 arvuti_kaardid=deck[26:]
 
 global mängija
+global arvuti
 arvuti=[0,0,0,0]
 mängija=[0,0,0,0]
 global pakk1
@@ -265,6 +302,9 @@ del arvuti_kaardid[0]
 pealmised()
 kaarte_alles()
 
+my_event = pygame.USEREVENT + 1
+pygame.time.set_timer(my_event, 3000)
+
 while not done:
     ütle_pakk(pakkvasak)
     pygame.display.flip()
@@ -273,6 +313,10 @@ while not done:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             done = True
+        
+        if event.type == my_event:
+            arvuti_kaartide_asetamine()
+        
         if event.type == pygame.KEYDOWN:
             #lisame uued kaardid ///ajutine
             if event.key == pygame.K_u:
