@@ -19,26 +19,31 @@ def kontroll(x,y):
 #Arvuti käib lauale kaarte
 def arvuti_kaartide_asetamine():
     #print(pakk)
+    sleep(0.25)
     for i in range(4):
         #print(laud[i])
         if arvuti[i] == 0:
             arvuti[i] = arvuti_kaardid[0]
             del arvuti_kaardid[0]
-            tõsta_kaart_arvuti(i)
+            lao_kaart_arvuti(i)
             nimed_arvuti()
             kaarte_alles()
             pygame.display.flip()
-            sleep(0.05)
+            sleep(0.5)
+    arvuti_kaartide_mängimine()
+    pygame.display.flip()
             #print(laud[i])
     #print(laud)
     #print(pakk)
 
-""" def arvuti_kaartide_mängimine(laud, mäng):
-    for i in laud:
-        if kontroll(i,pakk1):
-        
-        elif kontroll(i,pakk2): """
-
+def arvuti_kaartide_mängimine():
+    for i in range(len(arvuti)):
+        if kontroll(arvuti[i], pakk1[-1]):
+            tõsta_kaart_arvuti("vasak", i)
+            break
+        elif kontroll(arvuti[i], pakk2[-1]):
+            tõsta_kaart_arvuti("parem", i)
+            break
 
 
 def ütle_pakk(pakkvasak):
@@ -72,7 +77,7 @@ def tõsta_kaart(arv):
         
         pygame.display.flip()
         
-def tõsta_kaart_arvuti(arv):
+def lao_kaart_arvuti(arv):
     AkoordinaadidX = [100, 250, 400, 550]
     AkoordinaadidY = [50, 50, 50, 50]
     if len(arvuti_kaardid) > 0:
@@ -80,6 +85,30 @@ def tõsta_kaart_arvuti(arv):
         pygame.draw.rect(ekraani_pind, (255, 255, 255), kaart)
         
         pygame.display.flip()
+def tõsta_kaart_arvuti(kumb, indeks):
+    AkoordinaadidX = [100, 250, 400, 550]
+    AkoordinaadidY = [50, 50, 50, 50]
+    AsihtX = [250, 400]
+    AsihtY = [300, 300]
+    if(kumb == "vasak"):
+        arv = 0
+        pakk1.append(arvuti[indeks])
+    else:
+        arv = 1
+        pakk2.append(arvuti[indeks])
+    
+    AkoordinaadidX[indeks] = AsihtX[arv]
+    AkoordinaadidY[indeks] = AsihtY[arv]
+    #prindi vahepealne seis
+    värvi_taust()
+    nimed()
+    kaarte_alles()
+    pealmised()
+    ütle_pakk(pakkvasak)
+    
+    arvuti[indeks] = 0
+    nimed_arvuti()
+    pygame.display.flip()
 
 def pealmised():
     vasak = pakk1[-1]
@@ -387,6 +416,7 @@ while not done:
                         #prindi vahepealne seis
                         värvi_taust()
                         nimed()
+                        nimed_arvuti()
                         kaarte_alles()
                         pealmised()
                         kaartelaual -= 1
@@ -418,6 +448,7 @@ while not done:
                         #prindi vahepealne seis
                         värvi_taust()
                         nimed()
+                        nimed_arvuti()
                         kaarte_alles()
                         pealmised()
                         kaartelaual -= 1
@@ -448,6 +479,7 @@ while not done:
                         #prindi vahepealne seis
                         värvi_taust()
                         nimed()
+                        nimed_arvuti()
                         kaarte_alles()
                         pealmised()
                         kaartelaual -= 1
@@ -478,6 +510,7 @@ while not done:
                         #prindi vahepealne seis
                         värvi_taust()
                         nimed()
+                        nimed_arvuti()
                         kaarte_alles()
                         pealmised()
                         kaartelaual -= 1
