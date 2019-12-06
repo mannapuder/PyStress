@@ -22,7 +22,7 @@ def arvuti_kaartide_asetamine():
     sleep(0.25)
     for i in range(4):
         #print(laud[i])
-        if arvuti[i] == 0:
+        if arvuti[i] == 0 and len(arvuti_kaardid) > 0:
             arvuti[i] = arvuti_kaardid[0]
             del arvuti_kaardid[0]
             lao_kaart_arvuti(i)
