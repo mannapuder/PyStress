@@ -81,8 +81,8 @@ def tõsta_kaart(arv):
         pygame.display.flip()
         
 def lao_kaart_arvuti(arv):
-    AkoordinaadidX = [100, 250, 400, 550]
-    AkoordinaadidY = [50, 50, 50, 50]
+    AkoordinaadidX = [80, 230, 380, 530]
+    AkoordinaadidY = [40, 40, 40, 40]
     if len(arvuti_kaardid) > 0:
         kaart = str(arvuti[arv]) + ".png"
         kaart = pygame.image.load(kaart)
@@ -91,10 +91,10 @@ def lao_kaart_arvuti(arv):
         pygame.display.flip()
         
 def tõsta_kaart_arvuti(kumb, indeks):
-    AkoordinaadidX = [100, 250, 400, 550]
-    AkoordinaadidY = [50, 50, 50, 50]
-    AsihtX = [250, 400]
-    AsihtY = [300, 300]
+    AkoordinaadidX = [80, 230, 380, 530]
+    AkoordinaadidY = [40, 40, 40, 40]
+    AsihtX = [230, 380]
+    AsihtY = [290, 290]
     if(kumb == "vasak"):
         arv = 0
         pakk1.append(arvuti[indeks])
@@ -118,10 +118,10 @@ def tõsta_kaart_arvuti(kumb, indeks):
 def pealmised():
     vasak = str(pakk1[-1]) + ".png"
     kaart_v = pygame.image.load(vasak)
-    ekraani_pind.blit(kaart_v, (250, 300))
+    ekraani_pind.blit(kaart_v, (230, 290))
     parem = str(pakk2[-1]) + ".png"
     kaart_p = pygame.image.load(parem)
-    ekraani_pind.blit(kaart_p, (400, 300))
+    ekraani_pind.blit(kaart_p, (380, 290))
     
     pygame.display.flip()
 
@@ -141,36 +141,19 @@ def kaarte_alles():
 def värvi_taust():
     #prindime esialgse väljaku
     ekraani_pind.fill( (224, 192, 224) )
-    #mängija kaartide asetus
-    kaart1 = pygame.Rect(550, 550, 45, 70)
-    pygame.draw.rect(ekraani_pind, (0, 192, 192), kaart1)
-    kaart2 = pygame.Rect(400, 550, 45, 70)
-    pygame.draw.rect(ekraani_pind, (0, 192, 192), kaart2)
-    kaart3 = pygame.Rect(250, 550, 45, 70)
-    pygame.draw.rect(ekraani_pind, (0, 192, 192), kaart3)
-    kaart4 = pygame.Rect(100, 550, 45, 70)
-    pygame.draw.rect(ekraani_pind, (0, 192, 192), kaart4)
+    
     #mängija pakk
     asetus1 = pygame.Rect(580, 315, 70, 45)
     pygame.draw.rect(ekraani_pind, (0, 160, 160), asetus1)
 
-    #arvuti kaartide asetus
-    kaart5 = pygame.Rect(550, 50, 45, 70)
-    pygame.draw.rect(ekraani_pind, (0, 192, 192), kaart5)
-    kaart6 = pygame.Rect(400, 50, 45, 70)
-    pygame.draw.rect(ekraani_pind, (0, 192, 192), kaart6)
-    kaart7 = pygame.Rect(250, 50, 45, 70)
-    pygame.draw.rect(ekraani_pind, (0, 192, 192), kaart7)
-    kaart8 = pygame.Rect(100, 50, 45, 70)
-    pygame.draw.rect(ekraani_pind, (0, 192, 192), kaart8)
     #arvuti pakk
     asetus2 = pygame.Rect(50, 315, 70, 45)
     pygame.draw.rect(ekraani_pind, (0, 160, 160), asetus2)
 
     #keskkohas olevad kaks hunnikut
-    kesk1 = pygame.Rect(250, 300, 45, 70)
+    kesk1 = pygame.Rect(230, 290, 85, 150)
     pygame.draw.rect(ekraani_pind, (0, 160, 160), kesk1)
-    kesk2 = pygame.Rect(400, 300, 45, 70)
+    kesk2 = pygame.Rect(380, 290, 85, 150)
     pygame.draw.rect(ekraani_pind, (0, 160, 160), kesk2)
     if on_q:
         kaart = str(mängija[0]) + ".png"
@@ -194,27 +177,27 @@ def värvi_taust():
 
 def uued():
     if len(mängija_kaardid) != 0 and len(arvuti_kaardid) != 0 and on_q and on_w and on_e and on_r:
-        kesk1 = pygame.Rect(250, 300, 45, 70)
+        kesk1 = pygame.Rect(230, 290, 85, 150)
         pygame.draw.rect(ekraani_pind, (0, 160, 160), kesk1)
-        kesk2 = pygame.Rect(400, 300, 45, 70)
+        kesk2 = pygame.Rect(380, 290, 85, 150)
         pygame.draw.rect(ekraani_pind, (0, 160, 160), kesk2)
         pakk1.append(mängija_kaardid[0])
         pakk2.append(arvuti_kaardid[0])
         del mängija_kaardid[0]
         del arvuti_kaardid[0]
     elif len(arvuti_kaardid) >= 2:
-        kesk1 = pygame.Rect(250, 300, 45, 70)
+        kesk1 = pygame.Rect(230, 290, 85, 150)
         pygame.draw.rect(ekraani_pind, (0, 160, 160), kesk1)
-        kesk2 = pygame.Rect(400, 300, 45, 70)
+        kesk2 = pygame.Rect(380, 290, 85, 150)
         pygame.draw.rect(ekraani_pind, (0, 160, 160), kesk2)
         pakk1.append(arvuti_kaardid[0])
         del arvuti_kaardid[0]
         pakk2.append(arvuti_kaardid[0])
         del arvuti_kaardid[0]
     elif len(mängija_kaardid) >= 2 and on_q and on_w and on_e and on_r:
-        kesk1 = pygame.Rect(250, 300, 45, 70)
+        kesk1 = pygame.Rect(230, 290, 85, 150)
         pygame.draw.rect(ekraani_pind, (0, 160, 160), kesk1)
-        kesk2 = pygame.Rect(400, 300, 45, 70)
+        kesk2 = pygame.Rect(380, 290, 85, 150)
         pygame.draw.rect(ekraani_pind, (0, 160, 160), kesk2)
         pakk1.append(mängija_kaardid[0])
         del mängija_kaardid[0]
@@ -242,8 +225,8 @@ def nimed():
     
 def nimed_arvuti():
     n = [0, 0, 0, 0]
-    AkoordinaadidX = [100, 250, 400, 550]
-    AkoordinaadidY = [50, 50, 50, 50]
+    AkoordinaadidX = [80, 230, 380, 530]
+    AkoordinaadidY = [40, 40, 40, 40]
     if arvuti[0] != 0:
         n[0] = 1
     if arvuti[1] != 0:
@@ -298,13 +281,13 @@ pygame.display.set_caption("Proov 5")
 ekraani_pind.fill( (224, 192, 224) )
 
 #kaartide asukohad all
-alg_koordinaadidX = [100, 250, 400, 550]
-alg_koordinaadidY = [550, 550, 550, 550]
-koordinaadidX = [100, 250, 400, 550]
-koordinaadidY = [550, 550, 550, 550]
+alg_koordinaadidX = [80, 230, 380, 530]
+alg_koordinaadidY = [540, 540, 540, 540]
+koordinaadidX = [80, 230, 380, 530]
+koordinaadidY = [540, 540, 540, 540]
 
-sihtX = 250
-sihtY = 300
+sihtX = 230
+sihtY = 290
 
 global on_q
 global on_w
@@ -424,12 +407,12 @@ while not done:
             if event.key == pygame.K_p:
                 if(pakkvasak):
                     pakkvasak = False
-                    sihtX = 400
-                    sihtY = 300
+                    sihtX = 380
+                    sihtY = 290
                 else:
                     pakkvasak = True
-                    sihtX = 250
-                    sihtY = 300
+                    sihtX = 230
+                    sihtY = 290
                 nimed()
             if event.key == pygame.K_q:
                 if(pakkvasak):
@@ -560,9 +543,4 @@ while not done:
     pygame.display.flip()
     clock.tick(60)
 
-
-while True:
-    event = pygame.event.poll()
-    if(event.type == pygame.QUIT):
-        break
 pygame.quit()
