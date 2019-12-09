@@ -31,6 +31,8 @@ def arvuti_kaartide_asetamine():
             kaarte_alles()
             pygame.display.flip()
             sleep(0.5)
+            if event.type == pygame.KEYDOWN:
+                return 0
     if event.type == pygame.KEYDOWN:
         return 0
     arvuti_kaartide_mängimine()
@@ -350,40 +352,62 @@ while not done:
             arvuti_kaartide_asetamine()
         
         if len(arvuti_kaardid) == 0 and len(mängija_kaardid) == 0:
-            vaartus = 0
-            for el in arvuti:
-                if el != 0 or vaartus != 0:
-                    vaartus = 1
-            if vaartus == 0:
-                sleep(3)
-                ekraani_pind.fill( (224, 192, 224) )
-                tekst = "Arvuti võit!"
-                meie_font = pygame.font.SysFont("Times New Roman", 45)
-                teksti_pilt = meie_font.render(tekst, False, (25, 25, 155))
-                ekraani_pind.blit(teksti_pilt, (150, 400))
-                pygame.display.flip()
-                sleep(5)
-                done = True
-            elif not (on_q or on_w or on_e or on_r):
-                sleep(3)
-                ekraani_pind.fill( (224, 192, 224) )
-                tekst = "Sinu võit!"
-                meie_font = pygame.font.SysFont("Times New Roman", 45)
-                teksti_pilt = meie_font.render(tekst, False, (25, 25, 155))
-                ekraani_pind.blit(teksti_pilt, (150, 400))
-                pygame.display.flip()
-                sleep(5)
-                done = True
+            if(on_q or on_w or on_e or on_r):
+                saab = False
+                for el in mängija:
+                    if el != 0:
+                        if kontroll(el, pakk1[-1]) or kontroll(el, pakk2[-1]):
+                            saab = True
+                if not saab:
+                    vaartus = 0
+                    for el in arvuti:
+                        if el != 0 and vaartus == 0:
+                            vaartus = 1
+                    if vaartus == 0:
+                        sleep(3)
+                        ekraani_pind.fill( (224, 192, 224) )
+                        tekst = "Arvuti võit!"
+                        meie_font = pygame.font.SysFont("Times New Roman", 45)
+                        teksti_pilt = meie_font.render(tekst, False, (25, 25, 155))
+                        ekraani_pind.blit(teksti_pilt, (150, 400))
+                        pygame.display.flip()
+                        sleep(3)
+                        done = True
+                    elif not (on_q or on_w or on_e or on_r):
+                        sleep(3)
+                        ekraani_pind.fill( (224, 192, 224) )
+                        tekst = "Sinu võit!"
+                        meie_font = pygame.font.SysFont("Times New Roman", 45)
+                        teksti_pilt = meie_font.render(tekst, False, (25, 25, 155))
+                        ekraani_pind.blit(teksti_pilt, (150, 400))
+                        pygame.display.flip()
+                        sleep(5)
+                        done = True
+                    else:
+                        sleep(3)
+                        ekraani_pind.fill( (224, 192, 224) )
+                        tekst = "Viik!"
+                        meie_font = pygame.font.SysFont("Times New Roman", 45)
+                        teksti_pilt = meie_font.render(tekst, False, (25, 25, 155))
+                        ekraani_pind.blit(teksti_pilt, (150, 400))
+                        pygame.display.flip()
+                        sleep(3)
+                        done = True
             else:
-                sleep(3)
-                ekraani_pind.fill( (224, 192, 224) )
-                tekst = "Viik!"
-                meie_font = pygame.font.SysFont("Times New Roman", 45)
-                teksti_pilt = meie_font.render(tekst, False, (25, 25, 155))
-                ekraani_pind.blit(teksti_pilt, (150, 400))
-                pygame.display.flip()
-                sleep(5)
-                done = True
+                vaartus = 0
+                for el in arvuti:
+                    if el != 0 and vaartus == 0:
+                        vaartus = 1
+                if vaartus == 0:
+                    sleep(3)
+                    ekraani_pind.fill( (224, 192, 224) )
+                    tekst = "Viik!"
+                    meie_font = pygame.font.SysFont("Times New Roman", 45)
+                    teksti_pilt = meie_font.render(tekst, False, (25, 25, 155))
+                    ekraani_pind.blit(teksti_pilt, (150, 400))
+                    pygame.display.flip()
+                    sleep(3)
+                    done = True
         
         if event.type == pygame.KEYDOWN:
             #lisame uued kaardid ///ajutine
