@@ -172,34 +172,26 @@ def värvi_taust():
 
 def uued():
     if len(mängija_kaardid) != 0 and len(arvuti_kaardid) != 0 and on_q and on_w and on_e and on_r:
-        kesk1 = pygame.Rect(230, 290, 85, 150)
-        pygame.draw.rect(ekraani_pind, (0, 160, 160), kesk1)
-        kesk2 = pygame.Rect(380, 290, 85, 150)
-        pygame.draw.rect(ekraani_pind, (0, 160, 160), kesk2)
         pakk1.append(mängija_kaardid[0])
         pakk2.append(arvuti_kaardid[0])
         del mängija_kaardid[0]
         del arvuti_kaardid[0]
     elif len(arvuti_kaardid) >= 2:
-        kesk1 = pygame.Rect(230, 290, 85, 150)
-        pygame.draw.rect(ekraani_pind, (0, 160, 160), kesk1)
-        kesk2 = pygame.Rect(380, 290, 85, 150)
-        pygame.draw.rect(ekraani_pind, (0, 160, 160), kesk2)
         pakk1.append(arvuti_kaardid[0])
         del arvuti_kaardid[0]
         pakk2.append(arvuti_kaardid[0])
         del arvuti_kaardid[0]
     elif len(mängija_kaardid) >= 2 and on_q and on_w and on_e and on_r:
-        kesk1 = pygame.Rect(230, 290, 85, 150)
-        pygame.draw.rect(ekraani_pind, (0, 160, 160), kesk1)
-        kesk2 = pygame.Rect(380, 290, 85, 150)
-        pygame.draw.rect(ekraani_pind, (0, 160, 160), kesk2)
         pakk1.append(mängija_kaardid[0])
         del mängija_kaardid[0]
         pakk2.append(mängija_kaardid[0])
         del mängija_kaardid[0]
-    else:
-        print("kaardid otsas")
+    elif len(mängija_kaardid) == 1:
+        pakk1.append(mängija_kaardid[0])
+        del mängija_kaardid[0]
+    elif len(arvuti_kaardid) == 1:
+        pakk1.append(arvuti_kaardid[0])
+        del arvuti_kaardid[0]
 
 def nimed():
     n = [0, 0, 0, 0]
@@ -272,7 +264,7 @@ pakk2=[]
 pygame.init()
 #värvime tausta
 ekraani_pind = pygame.display.set_mode( (700, 720) )
-pygame.display.set_caption("Proov 5")
+pygame.display.set_caption("Stress")
 ekraani_pind.fill( (224, 192, 224) )
 
 #kaartide asukohad all
@@ -349,13 +341,40 @@ while not done:
         if event.type == my_event:
             arvuti_kaartide_asetamine()
         
-        if len(arvuti_kaardid) == 0:
+        if len(arvuti_kaardid) == 0 and len(mängija_kaardid) == 0:
             vaartus = 0
             for el in arvuti:
                 if el != 0 or vaartus != 0:
                     vaartus = 1
             if vaartus == 0:
-                print("arvuti võit")
+                sleep(3)
+                ekraani_pind.fill( (224, 192, 224) )
+                tekst = "Arvuti võit!"
+                meie_font = pygame.font.SysFont("Times New Roman", 45)
+                teksti_pilt = meie_font.render(tekst, False, (25, 25, 155))
+                ekraani_pind.blit(teksti_pilt, (150, 400))
+                pygame.display.flip()
+                sleep(5)
+                done = True
+            elif not (on_q or on_w or on_e or on_r):
+                sleep(3)
+                ekraani_pind.fill( (224, 192, 224) )
+                tekst = "Sinu võit!"
+                meie_font = pygame.font.SysFont("Times New Roman", 45)
+                teksti_pilt = meie_font.render(tekst, False, (25, 25, 155))
+                ekraani_pind.blit(teksti_pilt, (150, 400))
+                pygame.display.flip()
+                sleep(5)
+                done = True
+            else:
+                sleep(3)
+                ekraani_pind.fill( (224, 192, 224) )
+                tekst = "Viik!"
+                meie_font = pygame.font.SysFont("Times New Roman", 45)
+                teksti_pilt = meie_font.render(tekst, False, (25, 25, 155))
+                ekraani_pind.blit(teksti_pilt, (150, 400))
+                pygame.display.flip()
+                sleep(5)
                 done = True
         
         if event.type == pygame.KEYDOWN:
