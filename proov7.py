@@ -446,7 +446,7 @@ while not done:
                     värvi_taust()
                     kaarte_alles()
                     uued()
-                    ütle_pakk()
+                    ütle_pakk(pakkvasak)
                     pealmised()
                     pygame.display.flip()
                 pygame.event.set_allowed(my_event)
