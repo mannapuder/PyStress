@@ -469,6 +469,7 @@ while not done:
                     
                     värvi_taust()
                     kaarte_alles()
+                    nimed_arvuti()
                     uued()
                     ütle_pakk(pakkvasak)
                     pealmised()
