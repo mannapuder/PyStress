@@ -38,13 +38,15 @@ def arvuti_kaartide_asetamine():
 
 def arvuti_kaartide_mängimine():
     for i in range(len(arvuti)):
-        if kontroll(arvuti[i], pakk1[-1]):
-            tõsta_kaart_arvuti("vasak", i)
-            break
-        elif kontroll(arvuti[i], pakk2[-1]):
-            tõsta_kaart_arvuti("parem", i)
-            break
-
+        try:
+            if kontroll(arvuti[i], pakk1[-1]):
+                tõsta_kaart_arvuti("vasak", i)
+                break
+            elif kontroll(arvuti[i], pakk2[-1]):
+                tõsta_kaart_arvuti("parem", i)
+                break
+        except:
+            a = 1
 
 def ütle_pakk(pakkvasak):
     if(pakkvasak):
@@ -187,16 +189,35 @@ def värvi_taust():
         pygame.draw.rect(ekraani_pind, (255, 255, 255), kaart)
 
 def uued():
-    if(on_q and on_w and on_e and on_r):
-        if len(mängija_kaardid) != 0:
-            kesk1 = pygame.Rect(250, 300, 45, 70)
-            pygame.draw.rect(ekraani_pind, (0, 160, 160), kesk1)
-            kesk2 = pygame.Rect(400, 300, 45, 70)
-            pygame.draw.rect(ekraani_pind, (0, 160, 160), kesk2)
-            pakk1.append(mängija_kaardid[0])
-            pakk2.append(arvuti_kaardid[0])
-            del mängija_kaardid[0]
-            del arvuti_kaardid[0]
+    if len(mängija_kaardid) != 0 and len(arvuti_kaardid) != 0 and on_q and on_w and on_e and on_r:
+        kesk1 = pygame.Rect(250, 300, 45, 70)
+        pygame.draw.rect(ekraani_pind, (0, 160, 160), kesk1)
+        kesk2 = pygame.Rect(400, 300, 45, 70)
+        pygame.draw.rect(ekraani_pind, (0, 160, 160), kesk2)
+        pakk1.append(mängija_kaardid[0])
+        pakk2.append(arvuti_kaardid[0])
+        del mängija_kaardid[0]
+        del arvuti_kaardid[0]
+    elif len(arvuti_kaardid) >= 2:
+        kesk1 = pygame.Rect(250, 300, 45, 70)
+        pygame.draw.rect(ekraani_pind, (0, 160, 160), kesk1)
+        kesk2 = pygame.Rect(400, 300, 45, 70)
+        pygame.draw.rect(ekraani_pind, (0, 160, 160), kesk2)
+        pakk1.append(arvuti_kaardid[0])
+        del arvuti_kaardid[0]
+        pakk2.append(arvuti_kaardid[0])
+        del arvuti_kaardid[0]
+    elif len(mängija_kaardid) >= 2 and on_q and on_w and on_e and on_r:
+        kesk1 = pygame.Rect(250, 300, 45, 70)
+        pygame.draw.rect(ekraani_pind, (0, 160, 160), kesk1)
+        kesk2 = pygame.Rect(400, 300, 45, 70)
+        pygame.draw.rect(ekraani_pind, (0, 160, 160), kesk2)
+        pakk1.append(mängija_kaardid[0])
+        del mängija_kaardid[0]
+        pakk2.append(mängija_kaardid[0])
+        del mängija_kaardid[0]
+    else:
+        print("kaardid otsas")
 
 def nimed():
     n = [0, 0, 0, 0]
@@ -345,6 +366,15 @@ while not done:
         
         if event.type == my_event:
             arvuti_kaartide_asetamine()
+        
+        if len(arvuti_kaardid) == 0:
+            vaartus = 0
+            for el in arvuti:
+                if el != 0 or vaartus != 0:
+                    vaartus = 1
+            if vaartus == 0:
+                print("arvuti võit")
+                done = True
         
         if event.type == pygame.KEYDOWN:
             #lisame uued kaardid ///ajutine
