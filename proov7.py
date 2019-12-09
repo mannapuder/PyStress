@@ -74,8 +74,9 @@ def ütle_pakk(pakkvasak):
 
 def tõsta_kaart(arv):
     if len(mängija_kaardid) > 0:
-        kaart = pygame.Rect(koordinaadidX[arv], koordinaadidY[arv], 45, 70)
-        pygame.draw.rect(ekraani_pind, (255, 255, 255), kaart)
+        kaart = str(mängija[arv]) + ".png"
+        kaart = pygame.image.load(kaart)
+        ekraani_pind.blit(kaart, (koordinaadidX[arv], koordinaadidY[arv]))
         
         pygame.display.flip()
         
@@ -83,10 +84,12 @@ def lao_kaart_arvuti(arv):
     AkoordinaadidX = [100, 250, 400, 550]
     AkoordinaadidY = [50, 50, 50, 50]
     if len(arvuti_kaardid) > 0:
-        kaart = pygame.Rect(AkoordinaadidX[arv], AkoordinaadidY[arv], 45, 70)
-        pygame.draw.rect(ekraani_pind, (255, 255, 255), kaart)
+        kaart = str(arvuti[arv]) + ".png"
+        kaart = pygame.image.load(kaart)
+        ekraani_pind.blit(kaart, (AkoordinaadidX[arv], AkoordinaadidY[arv]))
         
         pygame.display.flip()
+        
 def tõsta_kaart_arvuti(kumb, indeks):
     AkoordinaadidX = [100, 250, 400, 550]
     AkoordinaadidY = [50, 50, 50, 50]
@@ -113,13 +116,12 @@ def tõsta_kaart_arvuti(kumb, indeks):
     pygame.display.flip()
 
 def pealmised():
-    vasak = pakk1[-1]
-    meie_font = pygame.font.SysFont("Times New Roman", 22)
-    teksti_pilt_vasak = meie_font.render(vasak, False, (25, 25, 155))
-    ekraani_pind.blit(teksti_pilt_vasak, (250, 300))
-    parem = pakk2[-1]
-    teksti_pilt_parem = meie_font.render(parem, False, (25, 25, 155))
-    ekraani_pind.blit(teksti_pilt_parem, (400, 300))
+    vasak = str(pakk1[-1]) + ".png"
+    kaart_v = pygame.image.load(vasak)
+    ekraani_pind.blit(kaart_v, (250, 300))
+    parem = str(pakk2[-1]) + ".png"
+    kaart_p = pygame.image.load(parem)
+    ekraani_pind.blit(kaart_p, (400, 300))
     
     pygame.display.flip()
 
@@ -171,20 +173,24 @@ def värvi_taust():
     kesk2 = pygame.Rect(400, 300, 45, 70)
     pygame.draw.rect(ekraani_pind, (0, 160, 160), kesk2)
     if on_q:
-        kaart = pygame.Rect(koordinaadidX[0], koordinaadidY[0], 45, 70)
-        pygame.draw.rect(ekraani_pind, (255, 255, 255), kaart)
+        kaart = str(mängija[0]) + ".png"
+        kaart = pygame.image.load(kaart)
+        ekraani_pind.blit(kaart, (koordinaadidX[0], koordinaadidY[0]))
         
     if on_w:
-        kaart = pygame.Rect(koordinaadidX[1], koordinaadidY[1], 45, 70)
-        pygame.draw.rect(ekraani_pind, (255, 255, 255), kaart)
+        kaart = str(mängija[1]) + ".png"
+        kaart = pygame.image.load(kaart)
+        ekraani_pind.blit(kaart, (koordinaadidX[1], koordinaadidY[1]))
         
     if on_e:
-        kaart = pygame.Rect(koordinaadidX[2], koordinaadidY[2], 45, 70)
-        pygame.draw.rect(ekraani_pind, (255, 255, 255), kaart)
+        kaart = str(mängija[2]) + ".png"
+        kaart = pygame.image.load(kaart)
+        ekraani_pind.blit(kaart, (koordinaadidX[2], koordinaadidY[2]))
 
     if on_r:
-        kaart = pygame.Rect(koordinaadidX[3], koordinaadidY[3], 45, 70)
-        pygame.draw.rect(ekraani_pind, (255, 255, 255), kaart)
+        kaart = str(mängija[3]) + ".png"
+        kaart = pygame.image.load(kaart)
+        ekraani_pind.blit(kaart, (koordinaadidX[3], koordinaadidY[3]))
 
 def uued():
     if len(mängija_kaardid) != 0 and len(arvuti_kaardid) != 0 and on_q and on_w and on_e and on_r:
@@ -229,10 +235,9 @@ def nimed():
         n[3] = 1
     for i in range(4):
         if(n[i] == 1):
-            nimi = mängija[i]
-            meie_font = pygame.font.SysFont("Times New Roman", 22)
-            teksti_pilt_nimi = meie_font.render(nimi, False, (25, 25, 155))
-            ekraani_pind.blit(teksti_pilt_nimi, (koordinaadidX[i], koordinaadidY[i]))
+            kaart = str(mängija[i]) + ".png"
+            kaart = pygame.image.load(kaart)
+            ekraani_pind.blit(kaart, (koordinaadidX[i], koordinaadidY[i]))
     pygame.display.flip()
     
 def nimed_arvuti():
@@ -249,10 +254,10 @@ def nimed_arvuti():
         n[3] = 1
     for i in range(4):
         if(n[i] == 1):
-            nimi = arvuti[i]
-            meie_font = pygame.font.SysFont("Times New Roman", 22)
-            teksti_pilt_nimi = meie_font.render(nimi, False, (25, 25, 155))
-            ekraani_pind.blit(teksti_pilt_nimi, (AkoordinaadidX[i], AkoordinaadidY[i]))
+            kaart = str(arvuti[i]) + ".png"
+            kaart = pygame.image.load(kaart)
+            ekraani_pind.blit(kaart, (AkoordinaadidX[i], AkoordinaadidY[i]))
+
     pygame.display.flip()
 
 import  pygame
@@ -361,6 +366,7 @@ while not done:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             done = True
+            break
         
         if event.type == my_event:
             arvuti_kaartide_asetamine()
@@ -386,30 +392,30 @@ while not done:
                 if len(mängija_kaardid) > 0:
                     kaartelaual += 1
                     if not on_q:
-                        tõsta_kaart(0)
                         mängija[0] = mängija_kaardid[0]
                         del mängija_kaardid[0]
+                        tõsta_kaart(0)
                         on_q = True
                         nimed()
                         kaarte_alles()
                     elif not on_w:
-                        tõsta_kaart(1)
                         mängija[1] = mängija_kaardid[0]
                         del mängija_kaardid[0]
+                        tõsta_kaart(1)
                         on_w = True
                         nimed()
                         kaarte_alles()
                     elif not on_e:
-                        tõsta_kaart(2)
                         mängija[2] = mängija_kaardid[0]
                         del mängija_kaardid[0]
+                        tõsta_kaart(2)
                         on_e = True
                         nimed()
                         kaarte_alles()
                     elif not on_r:
-                        tõsta_kaart(3)
                         mängija[3] = mängija_kaardid[0]
                         del mängija_kaardid[0]
+                        tõsta_kaart(3)
                         on_r = True
                         nimed()
                         kaarte_alles()
