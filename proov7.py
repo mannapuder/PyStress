@@ -19,7 +19,6 @@ def kontroll(x,y):
 #Arvuti käib lauale kaarte
 def arvuti_kaartide_asetamine():
     #print(pakk)
-    sleep(0.25)
     for i in range(4):
         #print(laud[i])
         if arvuti[i] == 0 and len(arvuti_kaardid) > 0:
@@ -339,6 +338,7 @@ while not done:
             break
         
         if event.type == my_event:
+            sleep(0.25)
             arvuti_kaartide_asetamine()
         
         if len(arvuti_kaardid) == 0 and len(mängija_kaardid) == 0:
