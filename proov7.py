@@ -53,22 +53,22 @@ def ütle_pakk(pakkvasak):
         tekst_3_2 = "parem pakk"
         meie_font3 = pygame.font.SysFont("Times New Roman", 22)
         teksti_pilt_3 = meie_font3.render(tekst_3_2, False, (224, 192, 224))
-        ekraani_pind.blit(teksti_pilt_3, (300, 200))
+        ekraani_pind.blit(teksti_pilt_3, (300, 220))
         
         tekst_3_1 = "vasak pakk"
         meie_font3 = pygame.font.SysFont("Times New Roman", 22)
         teksti_pilt_3 = meie_font3.render(tekst_3_1, False, (25, 25, 155))
-        ekraani_pind.blit(teksti_pilt_3, (300, 200))
+        ekraani_pind.blit(teksti_pilt_3, (300, 220))
     else:
         tekst_3_1 = "vasak pakk"
         meie_font3 = pygame.font.SysFont("Times New Roman", 22)
         teksti_pilt_3 = meie_font3.render(tekst_3_1, False, (224, 192, 224))
-        ekraani_pind.blit(teksti_pilt_3, (300, 200))
+        ekraani_pind.blit(teksti_pilt_3, (300, 220))
         
         tekst_3_2 = "parem pakk"
         meie_font3 = pygame.font.SysFont("Times New Roman", 22)
         teksti_pilt_3 = meie_font3.render(tekst_3_2, False, (25, 25, 155))
-        ekraani_pind.blit(teksti_pilt_3, (300, 200))
+        ekraani_pind.blit(teksti_pilt_3, (300, 220))
         
     pygame.display.flip()
 
@@ -127,15 +127,15 @@ def pealmised():
 
 def kaarte_alles():
     tagus = pygame.image.load('tagus.png')
-    ekraani_pind.blit(tagus, (580, 315))
-    ekraani_pind.blit(tagus, (50, 315))
+    ekraani_pind.blit(tagus, (580, 335))
+    ekraani_pind.blit(tagus, (50, 335))
     meie_font = pygame.font.SysFont("Times New Roman Bold", 40)
     vasak = str(len(mängija_kaardid))
     teksti_pilt_vasak = meie_font.render(vasak, False, (25, 25, 155))
-    ekraani_pind.blit(teksti_pilt_vasak, (65, 325))
+    ekraani_pind.blit(teksti_pilt_vasak, (65, 345))
     parem = str(len(arvuti_kaardid))
     teksti_pilt_parem = meie_font.render(parem, False, (25, 25, 155))
-    ekraani_pind.blit(teksti_pilt_parem, (595, 325))
+    ekraani_pind.blit(teksti_pilt_parem, (595, 345))
     pygame.display.flip()
 
 def värvi_taust():
@@ -143,18 +143,13 @@ def värvi_taust():
     ekraani_pind.fill( (224, 192, 224) )
     
     #mängija pakk
-    asetus1 = pygame.Rect(580, 315, 70, 45)
+    asetus1 = pygame.Rect(580, 335, 70, 45)
     pygame.draw.rect(ekraani_pind, (0, 160, 160), asetus1)
 
     #arvuti pakk
-    asetus2 = pygame.Rect(50, 315, 70, 45)
+    asetus2 = pygame.Rect(50, 335, 70, 45)
     pygame.draw.rect(ekraani_pind, (0, 160, 160), asetus2)
 
-    #keskkohas olevad kaks hunnikut
-    kesk1 = pygame.Rect(230, 290, 85, 150)
-    pygame.draw.rect(ekraani_pind, (0, 160, 160), kesk1)
-    kesk2 = pygame.Rect(380, 290, 85, 150)
-    pygame.draw.rect(ekraani_pind, (0, 160, 160), kesk2)
     if on_q:
         kaart = str(mängija[0]) + ".png"
         kaart = pygame.image.load(kaart)
