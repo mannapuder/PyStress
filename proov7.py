@@ -22,8 +22,6 @@ def arvuti_kaartide_asetamine():
     for i in range(4):
         #print(laud[i])
         if arvuti[i] == 0 and len(arvuti_kaardid) > 0:
-            if event.type == pygame.KEYDOWN:
-                return 0
             arvuti[i] = arvuti_kaardid[0]
             del arvuti_kaardid[0]
             lao_kaart_arvuti(i)
@@ -31,10 +29,14 @@ def arvuti_kaartide_asetamine():
             kaarte_alles()
             pygame.display.flip()
             sleep(0.5)
-            if event.type == pygame.KEYDOWN:
-                return 0
-    if event.type == pygame.KEYDOWN:
-        return 0
+            pressed = pygame.key.get_pressed()
+            for event in pygame.event.get():
+                if event.type == pygame.KEYDOWN:
+                    return 0
+    pressed = pygame.key.get_pressed()
+    for event in pygame.event.get():
+        if event.type == pygame.KEYDOWN:
+            return 0
     arvuti_kaartide_mängimine()
     pygame.display.flip()
             #print(laud[i])
@@ -43,11 +45,11 @@ def arvuti_kaartide_asetamine():
 
 def arvuti_kaartide_mängimine():
     for i in range(len(arvuti)):
-        if event.type == pygame.KEYDOWN:
-            return 0
-        try:
+        pressed = pygame.key.get_pressed()
+        for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 return 0
+        try:
             if kontroll(arvuti[i], pakk1[-1]):
                 tõsta_kaart_arvuti("vasak", i)
                 break
@@ -239,6 +241,71 @@ def nimed_arvuti():
 
     pygame.display.flip()
 
+def stress_arvuti():
+    global pakk1
+    global pakk2
+    ekraani_pind.fill( (224, 192, 224) )
+    sleep(1.5)
+    tekst = "Stress!"
+    meie_font = pygame.font.SysFont("Times New Roman", 45)
+    teksti_pilt = meie_font.render(tekst, False, (25, 25, 155))
+    ekraani_pind.blit(teksti_pilt, (150, 400))
+    pygame.display.flip()
+    sleep(3)
+    
+    for el in pakk1:
+        mängija_kaardid.append(el)
+    for el in pakk2:
+        mängija_kaardid.append(el)
+        
+    pakk1 = []
+    pakk2 = []
+    
+    värvi_taust()
+    kaarte_alles()
+    nimed_arvuti()
+    uued()
+    ütle_pakk(pakkvasak)
+    pealmised()
+    pygame.display.flip()
+
+def stress_mangija():
+    global pakk1
+    global pakk2
+    ekraani_pind.fill( (224, 192, 224) )
+    tekst = "Stress!"
+    meie_font = pygame.font.SysFont("Times New Roman", 45)
+    teksti_pilt = meie_font.render(tekst, False, (25, 25, 155))
+    ekraani_pind.blit(teksti_pilt, (150, 400))
+    pygame.display.flip()
+    sleep(3)
+    if len(mängija_kaardid) == 0:
+        if not (on_q or on_w or on_e or on_r):
+            ekraani_pind.fill( (224, 192, 224) )
+            tekst = "Sinu võit!"
+            meie_font = pygame.font.SysFont("Times New Roman", 45)
+            teksti_pilt = meie_font.render(tekst, False, (25, 25, 155))
+            ekraani_pind.blit(teksti_pilt, (150, 400))
+            pygame.display.flip()
+            sleep(5)
+            pygame.quit()
+            
+    for el in pakk1:
+        arvuti_kaardid.append(el)
+    for el in pakk2:
+        arvuti_kaardid.append(el)
+    pakk1 = []
+    pakk2 = []
+    
+    värvi_taust()
+    kaarte_alles()
+    nimed_arvuti()
+    uued()
+    ütle_pakk(pakkvasak)
+    pealmised()
+    pygame.display.flip()
+
+
 import  pygame
 from time import sleep
 from random import shuffle
@@ -373,16 +440,6 @@ while not done:
                         pygame.display.flip()
                         sleep(3)
                         done = True
-                    elif not (on_q or on_w or on_e or on_r):
-                        sleep(3)
-                        ekraani_pind.fill( (224, 192, 224) )
-                        tekst = "Sinu võit!"
-                        meie_font = pygame.font.SysFont("Times New Roman", 45)
-                        teksti_pilt = meie_font.render(tekst, False, (25, 25, 155))
-                        ekraani_pind.blit(teksti_pilt, (150, 400))
-                        pygame.display.flip()
-                        sleep(5)
-                        done = True
                     else:
                         sleep(3)
                         ekraani_pind.fill( (224, 192, 224) )
@@ -393,6 +450,16 @@ while not done:
                         pygame.display.flip()
                         sleep(3)
                         done = True
+            elif not (on_q or on_w or on_e or on_r):
+                sleep(3)
+                ekraani_pind.fill( (224, 192, 224) )
+                tekst = "Sinu võit!"
+                meie_font = pygame.font.SysFont("Times New Roman", 45)
+                teksti_pilt = meie_font.render(tekst, False, (25, 25, 155))
+                ekraani_pind.blit(teksti_pilt, (150, 400))
+                pygame.display.flip()
+                sleep(5)
+                done = True
             else:
                 vaartus = 0
                 for el in arvuti:
@@ -408,6 +475,23 @@ while not done:
                     pygame.display.flip()
                     sleep(3)
                     done = True
+        
+        if pakk1[-1][1:] == pakk2[-1][1:]:
+            pygame.event.set_blocked(my_event)
+            my_event_stress = pygame.USEREVENT + 1
+            pygame.time.set_timer(my_event_stress, 4000)
+            
+            pressed = pygame.key.get_pressed()
+            for event in pygame.event.get():
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_s:
+                        pygame.event.set_blocked(my_event_stress)
+                        stress_mangija()
+                        pygame.event.set_allowed(my_event_stress)
+                if my_event_stress:
+                    stress_arvuti()
+
+            pygame.event.set_allowed(my_event)
         
         if event.type == pygame.KEYDOWN:
             #lisame uued kaardid ///ajutine
@@ -453,27 +537,7 @@ while not done:
             if event.key == pygame.K_s:
                 pygame.event.set_blocked(my_event)
                 if pakk1[-1][1:] == pakk2[-1][1:]:
-                    ekraani_pind.fill( (224, 192, 224) )
-                    tekst = "Stress!"
-                    meie_font = pygame.font.SysFont("Times New Roman", 45)
-                    teksti_pilt = meie_font.render(tekst, False, (25, 25, 155))
-                    ekraani_pind.blit(teksti_pilt, (150, 400))
-                    pygame.display.flip()
-                    sleep(3)
-                    for el in pakk1:
-                        arvuti_kaardid.append(el)
-                    for el in pakk2:
-                        arvuti_kaardid.append(el)
-                    pakk1 = []
-                    pakk2 = []
-                    
-                    värvi_taust()
-                    kaarte_alles()
-                    nimed_arvuti()
-                    uued()
-                    ütle_pakk(pakkvasak)
-                    pealmised()
-                    pygame.display.flip()
+                    stress_mangija()
                 pygame.event.set_allowed(my_event)
                 
             if event.key == pygame.K_p:
