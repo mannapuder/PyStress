@@ -33,10 +33,6 @@ def arvuti_kaartide_asetamine():
             for event in pygame.event.get():
                 if event.type == pygame.KEYDOWN:
                     return 0
-    pressed = pygame.key.get_pressed()
-    for event in pygame.event.get():
-        if event.type == pygame.KEYDOWN:
-            return 0
     arvuti_kaartide_mängimine()
     pygame.display.flip()
             #print(laud[i])
@@ -45,10 +41,6 @@ def arvuti_kaartide_asetamine():
 
 def arvuti_kaartide_mängimine():
     for i in range(len(arvuti)):
-        pressed = pygame.key.get_pressed()
-        for event in pygame.event.get():
-            if event.type == pygame.KEYDOWN:
-                return 0
         try:
             if kontroll(arvuti[i], pakk1[-1]):
                 tõsta_kaart_arvuti("vasak", i)
@@ -289,6 +281,8 @@ def stress_mangija():
             pygame.display.flip()
             sleep(5)
             pygame.quit()
+            done = True
+            return 0
             
     for el in pakk1:
         arvuti_kaardid.append(el)
@@ -538,7 +532,10 @@ while not done:
                 pygame.event.set_blocked(my_event)
                 if pakk1[-1][1:] == pakk2[-1][1:]:
                     stress_mangija()
-                pygame.event.set_allowed(my_event)
+                try:
+                    pygame.event.set_allowed(my_event)
+                except:
+                    a = 1
                 
             if event.key == pygame.K_p:
                 if(pakkvasak):
