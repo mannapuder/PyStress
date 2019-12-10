@@ -402,7 +402,7 @@ pealmised()
 kaarte_alles()
 
 my_event = pygame.USEREVENT + 1
-pygame.time.set_timer(my_event, 3000)
+pygame.time.set_timer(my_event, 2500)
 
 while not done:
     ütle_pakk(pakkvasak)
