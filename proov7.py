@@ -280,7 +280,7 @@ def stress_mangija():
             ekraani_pind.blit(teksti_pilt, (150, 400))
             pygame.display.flip()
             sleep(5)
-            pygame.quit()
+            global done
             done = True
             return 0
             
@@ -523,6 +523,8 @@ while not done:
                     if event.key == pygame.K_s:
                         pygame.event.set_blocked(my_event_stress)
                         stress_mangija()
+                        if done:
+                            break
                         pygame.event.set_allowed(my_event_stress)
                 if my_event_stress:
                     stress_arvuti()
