@@ -359,21 +359,57 @@ done = False
 #sissejuhatav ekraan
 algus = True
 
+tekst = "Stress"
+tekst2 = "Mängimiseks vajuta tühikut."
+tekst3 = "Reeglid - r"
+tekst4 = "Juhised - e"
+meie_font = pygame.font.SysFont("Times New Roman", 45)
+meie_font2 = pygame.font.SysFont("Times New Roman", 36)
+teksti_pilt = meie_font.render(tekst, False, (25, 25, 155))
+teksti_pilt2 = meie_font2.render(tekst2, False, (25, 25, 155))
+teksti_pilt3 = meie_font2.render(tekst3, False, (25, 25, 155))
+teksti_pilt4 = meie_font2.render(tekst4, False, (25, 25, 155))
+ekraani_pind.blit(teksti_pilt, (300, 200))
+ekraani_pind.blit(teksti_pilt2, (150, 400))
+ekraani_pind.blit(teksti_pilt3, (150, 500))
+ekraani_pind.blit(teksti_pilt4, (150, 600))
+pygame.display.flip()
+
 while algus:
-    tekst = "Stress"
-    tekst2 = "Jätkamiseks vajuta tühikut."
-    meie_font = pygame.font.SysFont("Times New Roman", 45)
-    meie_font2 = pygame.font.SysFont("Times New Roman", 36)
-    teksti_pilt = meie_font.render(tekst, False, (25, 25, 155))
-    teksti_pilt2 = meie_font2.render(tekst2, False, (25, 25, 155))
-    ekraani_pind.blit(teksti_pilt, (300, 200))
-    ekraani_pind.blit(teksti_pilt2, (150, 400))
-    pygame.display.flip()
     pressed = pygame.key.get_pressed()
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
                 algus = False
+            if event.key == pygame.K_e:
+                ekraani_pind.fill( (224, 192, 224) )
+                pilt = "juhised.png"
+                pilt = pygame.image.load(pilt)
+                ekraani_pind.blit(pilt, (0, 0))
+                pygame.display.flip()
+            if event.key == pygame.K_r:
+                ekraani_pind.fill( (224, 192, 224) )
+                pilt = "reeglid.png"
+                pilt = pygame.image.load(pilt)
+                ekraani_pind.blit(pilt, (0, 0))
+                pygame.display.flip()
+            if event.key == pygame.K_q:
+                ekraani_pind.fill( (224, 192, 224) )
+                tekst = "Stress"
+                tekst2 = "Mängimiseks vajuta tühikut."
+                tekst3 = "Reeglid - r"
+                tekst4 = "Juhised - e"
+                meie_font = pygame.font.SysFont("Times New Roman", 45)
+                meie_font2 = pygame.font.SysFont("Times New Roman", 36)
+                teksti_pilt = meie_font.render(tekst, False, (25, 25, 155))
+                teksti_pilt2 = meie_font2.render(tekst2, False, (25, 25, 155))
+                teksti_pilt3 = meie_font2.render(tekst3, False, (25, 25, 155))
+                teksti_pilt4 = meie_font2.render(tekst4, False, (25, 25, 155))
+                ekraani_pind.blit(teksti_pilt, (300, 200))
+                ekraani_pind.blit(teksti_pilt2, (150, 400))
+                ekraani_pind.blit(teksti_pilt3, (150, 500))
+                ekraani_pind.blit(teksti_pilt4, (150, 600))
+                pygame.display.flip()
     
 värvi_taust()
 pygame.display.flip()
@@ -435,15 +471,21 @@ while not done:
                         sleep(3)
                         done = True
                     else:
-                        sleep(3)
-                        ekraani_pind.fill( (224, 192, 224) )
-                        tekst = "Viik!"
-                        meie_font = pygame.font.SysFont("Times New Roman", 45)
-                        teksti_pilt = meie_font.render(tekst, False, (25, 25, 155))
-                        ekraani_pind.blit(teksti_pilt, (150, 400))
-                        pygame.display.flip()
-                        sleep(3)
-                        done = True
+                        saab_arvuti = False
+                        for el in mängija:
+                            if el != 0:
+                                if kontroll(el, pakk1[-1]) or kontroll(el, pakk2[-1]):
+                                    saab_arvuti = True
+                        if not saab_arvuti:
+                            sleep(3)
+                            ekraani_pind.fill( (224, 192, 224) )
+                            tekst = "Viik!"
+                            meie_font = pygame.font.SysFont("Times New Roman", 45)
+                            teksti_pilt = meie_font.render(tekst, False, (25, 25, 155))
+                            ekraani_pind.blit(teksti_pilt, (150, 400))
+                            pygame.display.flip()
+                            sleep(3)
+                            done = True
             elif not (on_q or on_w or on_e or on_r):
                 sleep(3)
                 ekraani_pind.fill( (224, 192, 224) )
